@@ -1,9 +1,9 @@
 'use strict'
 
-const express = require('express');
-const socket = require('socket.io');
-
-const app = express();
+const express = require('express'),
+      socket = require('socket.io'),
+      app = express(),
+      port = process.env.PORT || 8000;  // optional for deployment
 
 
 app.get('/', function(req, res) {    // https redirection
@@ -24,8 +24,8 @@ app.use(express.static('public'));
 // login/identifiaction?
 // http/2?
 
-const server = app.listen(8000, function () {
-    console.log('listening for requests on port 8000,');
+const server = app.listen(port, function () {
+    console.log('listening for requests');
 });
 
 // Socket setup & pass server

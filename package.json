@@ -1,5 +1,5 @@
 {
-  "name": "websockets-playlist",
+  "name": "family-chat-pwa",
   "version": "1.0.0",
   "description": "A chat app using WebSockets",
   "main": "index.js",
@@ -9,14 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iamshaunjp/websockets-playlist.git"
+    "url": "https://github.com/DaniBencz/Family-Chat"
   },
-  "author": "The Net Ninja",
+  "author": "Daniel Bencz",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/iamshaunjp/websockets-playlist/issues"
-  },
-  "homepage": "https://github.com/iamshaunjp/websockets-playlist#readme",
+  "homepage": "https://family-chat-pwa.herokuapp.com/",
   "dependencies": {
     "express": "^4.15.2",
     "socket.io": "^1.7.3"
