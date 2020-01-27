@@ -1,9 +1,7 @@
 'use strict'
 
-// Make connection
-const socket = io.connect(window.location.href)
+const socket = io.connect(window.location.href) // make connection
 
-// Query DOM
 const message = document.getElementById('message'),
   handle = document.getElementById('handle'),
   btn = document.getElementById('send'),
@@ -11,42 +9,46 @@ const message = document.getElementById('message'),
   feedback = document.getElementById('feedback'),
   title = document.getElementById("title")
 
-// Emit events
-btn.addEventListener('click', function (e) {
+const chat = () => {  // send message callback
   socket.emit('chat', {
     message: message.value,
     handle: handle.value,
     time: new Date()
   });
-  message.value = ""; // empty input field
+  message.value = "" // empty input field
+}
+
+btn.addEventListener('click', e => {  // click submit
+  if (message.value != '') chat()
 });
 
-message.addEventListener('keypress', function () {
+window.addEventListener('keyup', e => { // hit enter
+  if (e.keyCode === 13 && message.value != '') chat()
+})
+
+// empty input field if no sending event
+message.addEventListener('keypress', () => {
   socket.emit('typing', handle.value);
 })
 
-// Listen for events
-socket.on('chat', function (data) {
+socket.on('chat', data => {
   feedback.innerHTML = '';
   // add timestamp
   output.innerHTML += '<p><strong>' + data.handle + ': </strong>' + data.message + '</p>';
 });
 
-socket.on('typing', function (data) {
+// remove '...typing' if input is unfocused
+// 'x' to clear input field
+socket.on('typing', data => {
   feedback.innerHTML = '<p><em>' + data + ' is typing a message...</em></p>';
   // remove it if no message received in a minute
 });
 
 // store message history for a day
 
-// while offline store outgoing messages in outbox
+// don't allow message sending while offline
 
-// send messages from outbox once back online
-
-// empty outbox once back online
-
-// service worker
-if (navigator.serviceWorker) {
+if (navigator.serviceWorker) { // service worker
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/js/fChat-sw.js', {
       scope: '/'  // default scope is the loaction of sw
@@ -56,7 +58,7 @@ if (navigator.serviceWorker) {
   })
 }
 
-const installHandler = () => {
+const installHandler = () => {  // insall event callback
   install.addEventListener('click', e => {
     install.style.display = 'none'
     deferredPromptEvent.prompt()
@@ -68,8 +70,7 @@ const installHandler = () => {
   })
 }
 
-// install promt
-let deferredPromptEvent
+let deferredPromptEvent // install promt
 window.addEventListener('beforeinstallprompt', (e) => {
   console.log('beforeinstall')
   deferredPromptEvent = e // stash event to trigger later
