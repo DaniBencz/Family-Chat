@@ -41,15 +41,24 @@ self.addEventListener('activate', e => {
 // add home screen: https://developers.google.com/web/fundamentals/app-install-banners
 
 self.addEventListener('fetch', e => {
-  console.log('fetch')
+  console.log('request', e.request)
   e.respondWith(
+    // new Response('Hello'),
 
-    fetch(e.request) // do a regular fetch, no action
-      // maybe refresh cache?
-      .catch(() => { // there was network error, we use cache instead
-        console.log('loading from cache')
-        //return caches.match(e.request)
-        return caches.match(config.offline)
+    // this will not allow messages through
+    /* caches.match(e.request)
+      .catch(() => {
+        fetch(e.request)
+      }) */
+
+    // this will download all the content 
+    fetch(e.request)
+      .catch((e) => {
+        // return caches.match(e.request)
+        // return e.default() // not supported
+        return caches.match(config.offline) // metching done by url, method and vary-headers
       })
+
+    //implement offline first for content, fetch for socket!
   )
 })

@@ -18,6 +18,9 @@ const chat = () => {  // send message callback
   message.value = "" // empty input field
 }
 
+// try checking for connection...
+fetch(window.location.href).catch(() => alert('offline :('))
+
 btn.addEventListener('click', e => {  // click submit
   if (message.value != '') chat()
 });
