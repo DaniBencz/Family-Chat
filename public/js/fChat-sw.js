@@ -1,7 +1,7 @@
 console.log("in fChat-sw.js")
 
 config = {
-  version: 'fChat-2',
+  version: 'fChat-1',
   shell: [
     '/',  // this is needed, else won't work! 
     // 'index.html',
@@ -40,25 +40,23 @@ self.addEventListener('activate', e => {
 
 // add home screen: https://developers.google.com/web/fundamentals/app-install-banners
 
-self.addEventListener('fetch', e => {
-  console.log('request', e.request)
-  e.respondWith(
-    // new Response('Hello'),
+const respondWith = e => {
+  //e.respondWith( new Response('Hello'))
 
-    // this will not allow messages through
-    /* caches.match(e.request)
+  if (e.request.url.includes('socket.io')) { // socket connection gets to fetch
+    console.log('fetching ', e.request.url)
+    e.respondWith(fetch(e.request))
+      .catch(() => {  // if fails, show offline content
+        return caches.match(config.offline)
+      })
+  }
+  else {  // all other content uses offline-first
+    console.log('cache ', e.request.url)
+    e.respondWith(caches.match(e.request) // metching done by url, method and vary-headers
       .catch(() => {
         fetch(e.request)
-      }) */
+      }))
+  }
+}
 
-    // this will download all the content 
-    fetch(e.request)
-      .catch((e) => {
-        // return caches.match(e.request)
-        // return e.default() // not supported
-        return caches.match(config.offline) // metching done by url, method and vary-headers
-      })
-
-    //implement offline first for content, fetch for socket!
-  )
-})
+self.addEventListener('fetch', e => { respondWith(e) })

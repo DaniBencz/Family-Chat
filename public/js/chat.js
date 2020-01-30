@@ -29,7 +29,6 @@ window.addEventListener('keyup', e => { // hit enter
   if (e.keyCode === 13 && message.value != '') chat()
 })
 
-// empty input field if no sending event
 message.addEventListener('keypress', () => {
   socket.emit('typing', handle.value);
 })
