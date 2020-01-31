@@ -55,8 +55,7 @@ if (navigator.serviceWorker) { // service worker
     navigator.serviceWorker.register('/js/fChat-sw.js', {
       scope: '/'  // default scope is the loaction of sw
     })
-      .then((registration) =>
-        console.log('fChat-sw.js registered with scope: ' + registration.scope))
+      // .then((registration) => console.log('fChat-sw.js registered with scope: ' + registration.scope))
   })
 }
 
@@ -74,7 +73,7 @@ const installHandler = () => {  // insall event callback
 
 let deferredPromptEvent // install promt
 window.addEventListener('beforeinstallprompt', (e) => {
-  console.log('beforeinstall')
+  // console.log('beforeinstall')
   deferredPromptEvent = e // stash event to trigger later
 
   let install = document.createElement("button")

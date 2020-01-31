@@ -1,6 +1,8 @@
-console.log("in fChat-sw.js")
+'use strict'
 
-config = {
+// console.log("in fChat-sw.js")
+
+const config = {
   version: 'fChat-1',
   shell: [
     '/',  // this is needed, else won't work! 
@@ -45,10 +47,10 @@ const respondWith = e => {
 
   if (e.request.url.includes('socket.io')) { // socket connection gets to fetch
     console.log('fetching ', e.request.url)
-    e.respondWith(fetch(e.request))
+    e.respondWith(fetch(e.request)
       .catch(() => {  // if fails, show offline content
         return caches.match(config.offline)
-      })
+      }))
   }
   else {  // all other content uses offline-first
     console.log('cache ', e.request.url)
