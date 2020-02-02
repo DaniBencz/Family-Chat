@@ -18,8 +18,7 @@ const chat = () => {  // send message callback
   message.value = "" // empty input field
 }
 
-// try checking for connection...
-fetch(window.location.href).catch(() => alert('offline :('))
+// try checking for connection...! (socket.onerror)
 
 btn.addEventListener('click', e => {  // click submit
   if (message.value != '') chat()
@@ -55,7 +54,7 @@ if (navigator.serviceWorker) { // service worker
     navigator.serviceWorker.register('/js/fChat-sw.js', {
       scope: '/'  // default scope is the loaction of sw
     })
-      // .then((registration) => console.log('fChat-sw.js registered with scope: ' + registration.scope))
+    // .then((registration) => console.log('fChat-sw.js registered with scope: ' + registration.scope))
   })
 }
 

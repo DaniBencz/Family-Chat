@@ -42,18 +42,21 @@ self.addEventListener('activate', e => {
 
 // add home screen: https://developers.google.com/web/fundamentals/app-install-banners
 
-const respondWith = e => {
+const customResp = e => {
   //e.respondWith( new Response('Hello'))
 
   if (e.request.url.includes('socket.io')) { // socket connection gets to fetch
-    console.log('fetching ', e.request.url)
+    // console.log('fetching ', e.request.url)
     e.respondWith(fetch(e.request)
       .catch(() => {  // if fails, show offline content
+        // doesn't work
         return caches.match(config.offline)
       }))
   }
   else {  // all other content uses offline-first
-    console.log('cache ', e.request.url)
+    // console.log('cache ', e.request.url)
+
+    // check connectivity first
     e.respondWith(caches.match(e.request) // metching done by url, method and vary-headers
       .catch(() => {
         fetch(e.request)
@@ -61,4 +64,4 @@ const respondWith = e => {
   }
 }
 
-self.addEventListener('fetch', e => { respondWith(e) })
+self.addEventListener('fetch', e => { customResp(e) })
