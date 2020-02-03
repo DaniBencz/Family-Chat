@@ -1,6 +1,7 @@
 'use strict'
 
 const socket = io.connect(window.location.href) // make connection
+// if(socket.disconnected) location.replace(window.location.href + 'offline/')
 
 const message = document.getElementById('message'),
   handle = document.getElementById('handle'),
@@ -18,8 +19,6 @@ const chat = () => {  // send message callback
   message.value = "" // empty input field
 }
 
-// try checking for connection...! (socket.onerror)
-
 btn.addEventListener('click', e => {  // click submit
   if (message.value != '') chat()
 });
@@ -31,6 +30,10 @@ window.addEventListener('keyup', e => { // hit enter
 message.addEventListener('keypress', () => {
   socket.emit('typing', handle.value);
 })
+
+setInterval(() => { // redirect to offline page, if ws connection broken
+  if(socket.disconnected) location.replace(window.location.href + 'offline/')
+}, 3000)
 
 socket.on('chat', data => {
   feedback.innerHTML = '';
@@ -46,8 +49,6 @@ socket.on('typing', data => {
 });
 
 // store message history for a day
-
-// don't allow message sending while offline
 
 if (navigator.serviceWorker) { // service worker
   window.addEventListener('load', () => {

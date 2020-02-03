@@ -42,6 +42,20 @@ self.addEventListener('activate', e => {
 
 // add home screen: https://developers.google.com/web/fundamentals/app-install-banners
 
+/* let online = false
+let isFirstFetch = true
+const firstFetch = () => {
+  console.log('isFirstFetch: ', isFirstFetch)
+  if (isFirstFetch) {
+    fetch('http://localhost:8000').then(() => {
+      online = true
+      console.log('online: ', online)
+    })
+    isFirstFetch = false
+  }
+  return online
+} */
+
 const customResp = e => {
   //e.respondWith( new Response('Hello'))
 
@@ -54,9 +68,6 @@ const customResp = e => {
       }))
   }
   else {  // all other content uses offline-first
-    // console.log('cache ', e.request.url)
-
-    // check connectivity first
     e.respondWith(caches.match(e.request) // metching done by url, method and vary-headers
       .catch(() => {
         fetch(e.request)
