@@ -3,6 +3,10 @@
 const socket = io.connect(window.location.href) // make connection
 // if(socket.disconnected) location.replace(window.location.href + 'offline/')
 
+setInterval(() => { // redirect to offline page, if ws connection broken
+  if(socket.disconnected) location.replace(window.location.href + 'offline/')
+}, 3000)
+
 const message = document.getElementById('message'),
   handle = document.getElementById('handle'),
   btn = document.getElementById('send'),
@@ -30,10 +34,6 @@ window.addEventListener('keyup', e => { // hit enter
 message.addEventListener('keypress', () => {
   socket.emit('typing', handle.value);
 })
-
-setInterval(() => { // redirect to offline page, if ws connection broken
-  if(socket.disconnected) location.replace(window.location.href + 'offline/')
-}, 3000)
 
 socket.on('chat', data => {
   feedback.innerHTML = '';
@@ -73,7 +73,6 @@ const installHandler = () => {  // insall event callback
 
 let deferredPromptEvent // install promt
 window.addEventListener('beforeinstallprompt', (e) => {
-  // console.log('beforeinstall')
   deferredPromptEvent = e // stash event to trigger later
 
   let install = document.createElement("button")
