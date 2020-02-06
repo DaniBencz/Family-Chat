@@ -5,14 +5,24 @@
 
 <body>
   <div>
-    <h1>Heroku need a few seconds to fire up</h1>
-    <button>Retry</button>
+    <h1>The server needs a few seconds to fire up</h1>
+    <!-- <button>Retry</button> -->
   </div>
   <script>
-    document.querySelector('button').addEventListener('click', () => {
+    /* document.querySelector('button').addEventListener('click', () => {
       // window.location.reload(true)
       // location.replace(window.location.host)
-    })
+    }) */
+    setInterval(() => {
+      fetch('http://localhost:8000/online/')
+        .then(() => {
+          console.log('fetch resolved')
+          location.pathname = ''
+        })
+        .catch(() => {
+          console.log('fetch failed')
+        })
+    }, 2000)
   </script>
 </body>
 

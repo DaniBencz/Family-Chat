@@ -1,21 +1,26 @@
 'use strict'
 
 const express = require('express'),
-      socket = require('socket.io'),
-      app = express(),
-      port = process.env.PORT || 8000;  // optional for deployment
+    socket = require('socket.io'),
+    app = express(),
+    port = process.env.PORT || 8000;  // optional for deployment
 
 
-app.get('/', function(req, res) {    // https redirection
+app.get('/', function (req, res) {    // https redirection
     // console.log('req host ', req.headers.host)
-    console.log('req url ',req.url)
+    console.log('req url ', req.url)
     // console.log(req.secure)
     // res.redirect('https://' + req.headers.host + req.url);
 
     res.sendFile(__dirname + '/public/index.html');
 })
 
-app.get('/js/fChat-sw.js', function(req, res) { 
+app.get('/online/', function (req, res) {    // https redirection
+    console.log('online')
+    res.sendFile(__dirname + '/public/online/index.html');
+})
+
+app.get('/js/fChat-sw.js', function (req, res) {
     res.setHeader('Service-Worker-Allowed', '/')
     res.sendFile(__dirname + '/public/js/fChat-sw.js');
 })
@@ -33,7 +38,7 @@ const io = socket(server);
 io.on('connection', (soc) => {
     console.log('socket connection id: ', soc.id);
     console.log('socket connection time: ', soc.handshake.time)
-    
+
     soc.on('chat', function (data) {
         io.sockets.emit('chat', data);  // everyone gets it
     });

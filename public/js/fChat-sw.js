@@ -1,7 +1,7 @@
 'use strict'
 
 const config = {
-  version: 'fChat-1',
+  version: 'fChat-2',
   shell: [
     '/',
     '../favicon.ico',
@@ -42,14 +42,19 @@ self.addEventListener('activate', e => {
 const customResp = e => {
   //e.respondWith( new Response('Hello'))
 
-  if (e.request.url.includes('socket.io')) { // socket connection gets to fetch
+  if (e.request.url.includes('socket.io') /* || e.request.url.includes('/online') */) { // socket connection gets to fetch
     e.respondWith(fetch(e.request))
   }
   else {  // all other content uses offline-first
-    e.respondWith(caches.match(e.request) // metching done by url, method and vary-headers
-      .catch(() => {
-        fetch(e.request)
-      }))
+    e.respondWith(
+      caches.match(e.request) // metching done by url, method and vary-headers
+        .then(resp => {
+          return resp || fetch(e.request)
+        })
+      /* .catch(() => { // this will not work: the match resolves even if the file is not found in the cache
+        return fetch(e.request)
+      }) */
+    )
   }
 }
 
