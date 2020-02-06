@@ -14,7 +14,7 @@
       // location.replace(window.location.host)
     }) */
     setInterval(() => {
-      fetch('http://localhost:8000/online/')
+      fetch(location.origin + '/online/')
         .then(() => {
           console.log('fetch resolved')
           location.pathname = ''
