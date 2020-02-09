@@ -42,18 +42,31 @@ self.addEventListener('activate', e => {
 const customResp = e => {
   //e.respondWith( new Response('Hello'))
 
-  if (e.request.url.includes('socket.io') /* || e.request.url.includes('/online') */) { // socket connection gets to fetch
+  if (e.request.url.includes('socket.io')) { // socket connection gets to fetch
     e.respondWith(fetch(e.request))
+  }
+  else if (e.request.url.includes('.png')) {
+    e.respondWith(
+      caches.match(e.request) // 1, try cache first
+        .then(resp => {
+          return resp || fetch(e.request) // 2, cache won't yield first time around, go fetch
+            .then(f_resp => {
+              const respClone = f_resp.clone()  // resp can be used only once, workaround to clone it
+              caches.open('png')
+                .then(cache => {
+                  cache.put(e.request, respClone) // update cache
+                })
+              return f_resp
+            })
+        })
+    )
   }
   else {  // all other content uses offline-first
     e.respondWith(
-      caches.match(e.request) // metching done by url, method and vary-headers
+      caches.match(e.request) // metching done by url, method, and vary-headers
         .then(resp => {
           return resp || fetch(e.request)
         })
-      /* .catch(() => { // this will not work: the match resolves even if the file is not found in the cache
-        return fetch(e.request)
-      }) */
     )
   }
 }
