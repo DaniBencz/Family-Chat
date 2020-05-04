@@ -1,11 +1,15 @@
 'use strict'
 
+var sslRedirect = require('heroku-ssl-redirect');   //  https://medium.com/@thiscodeworks.com/how-to-redirect-your-node-js-app-hosted-on-heroku-from-http-to-https-50ef80130bff
 const express = require('express'),
     socket = require('socket.io'),
     app = express(),
     port = process.env.PORT || 8000;  // optional for deployment
 
 // https redirection
+app.use(sslRedirect());
+
+
 // app.get("*", function (request, response) {
 //     response.redirect("https://" + request.headers.host + request.url);
 // });
