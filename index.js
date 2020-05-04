@@ -10,11 +10,11 @@ const express = require('express'),
 //     response.redirect("https://" + request.headers.host + request.url);
 // });
 
-app.use(function (request, response) {
-    if (!request.secure) {
-        response.redirect("https://" + request.headers.host + request.url);
-    }
-});
+// app.use(function (request, response) {
+//     if (!request.secure) {
+//         response.redirect("https://" + request.headers.host + request.url);
+//     }
+// });
 
 app.get('/', function (req, res) {
     // console.log('req host ', req.headers.host)
