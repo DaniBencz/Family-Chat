@@ -3,7 +3,7 @@
 // https://jakearchibald.com/2014/offline-cookbook/#cache-only
 
 const config = {
-  version: 'fChat-2',
+  version: 'fChat-3',
   shell: [
     '/',
     '../favicon.ico',
