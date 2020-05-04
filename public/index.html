@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -15,7 +15,7 @@
 
     <link rel="stylesheet" href="/styles.css" />
     <link rel="manifest" href="./manifest.json">
-    
+
     <!-- for Firefox -->
     <!-- <link rel="manifest" href="./manifest.webmanifest"> -->
 </head>
@@ -24,7 +24,13 @@
 
     <div id="fChat">
         <!-- share button -->
-        <h2 id="title">fChat 1.0</h2>
+        <div id="header">
+            <img id="share" onClick=share() alt="share" src="share-100.png" width="30" height="30" />
+            <h2 id="title">Family Chat</h2>
+            <a id="gitHub" href="https://github.com/DaniBencz/Family-Chat" rel="noopener noreferrer" target="_blank">
+                <img alt="gitHub repo" src='./github.png' width="33" height="33"></img>
+            </a>
+        </div>
         <div id="chat-window">
             <div id="output"></div>
             <div id="feedback"></div>

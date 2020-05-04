@@ -4,7 +4,7 @@ const socket = io.connect(window.location.href) // make connection
 // if(socket.disconnected) location.replace(window.location.href + 'offline/')
 
 setInterval(() => { // redirect to offline page, if socket connection broken
-  if(socket.disconnected) location.replace(window.location.href + 'offline/')
+  if (socket.disconnected) location.replace(window.location.href + 'offline/')
 }, 3000)
 
 const message = document.getElementById('message'),
@@ -12,7 +12,9 @@ const message = document.getElementById('message'),
   btn = document.getElementById('send'),
   output = document.getElementById('output'),
   feedback = document.getElementById('feedback'),
-  title = document.getElementById("title")
+  send = document.getElementById('send')
+  //title = document.getElementById("title"),
+  //header = document.getElementById("header")
 
 const chat = () => {  // send message callback
   socket.emit('chat', {
@@ -65,8 +67,7 @@ const installHandler = () => {  // insall event callback
     deferredPromptEvent.prompt()
     deferredPromptEvent.userChoice
       .then(result => {
-        if (result.outcome === 'accepted') alert('well done')
-        else alert('maybe next time')
+        if (result.outcome === 'accepted') alert('Family Chat is installed, have fun!')
       })
   })
 }
@@ -78,7 +79,24 @@ window.addEventListener('beforeinstallprompt', (e) => {
   let install = document.createElement("button")
   install.innerHTML = "Install"
   install.setAttribute("id", "install")
-  title.parentNode.insertBefore(install, title.nextSibling)
+  send.parentNode.insertBefore(install, send.nextSibling)
 
   installHandler()
 })
+
+const share = () => {
+  let navigator
+  navigator = window.navigator
+
+  if (navigator.share) {
+    navigator.share({
+      title: 'IDB Notes',
+      text: 'IDB Notes React PWA',
+      url: 'https://idbnotes.imfast.io/',
+    })
+      .then(() => alert('Sharing successfull'))
+      .catch((error) => console.log('Error sharing', error));
+  } else {
+    alert('Sharing is supported only on mobile devices')
+  }
+}

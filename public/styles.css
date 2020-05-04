@@ -1,52 +1,85 @@
-body{
-    font-family: 'Nunito';
+body {
+    font-family: "Nunito";
+    background-color: lavender;
 }
 
-h2{
+#header {
+    height: 43px;
+    text-align: center;
+    background-color: #575ed8;
+}
+
+#share {
+    float: left;
+}
+
+#title {
+    display: inline;
+    position: relative;
+    top: 10px;
+    color: white;
+}
+
+img {
+    margin: 5px;
+}
+
+#gitHub {
+    float: right;
+    height: 43px;
+}
+
+#share:hover {
+    cursor: pointer;
+    margin: 5px;
+}
+
+h2 {
     font-size: 18px;
     padding: 10px 20px;
     color: #575ed8;
 }
 
-#fChat{
+#fChat {
     max-height: 100vh;
     max-width: 600px;
     margin: 30px auto;
     border: 1px solid #ddd;
-    box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.05);
     border-radius: 2px;
 }
 
-#chat-window{
+#chat-window {
+    clear: both;
     height: 400px;
     overflow: auto;
     background: #f9f9f9;
 }
 
-#output p{
+#output p {
     padding: 14px 0px;
     margin: 0 20px;
     border-bottom: 1px solid #e9e9e9;
     color: #555;
 }
 
-#feedback p{
+#feedback p {
     color: #aaa;
     padding: 14px 0px;
     margin: 0 20px;
 }
 
-#output strong{
+#output strong {
     color: #575ed8;
 }
 
-label{
+label {
     box-sizing: border-box;
     display: block;
     padding: 10px 20px;
 }
 
-input{
+input {
     padding: 10px 20px;
     box-sizing: border-box;
     background: #eee;
@@ -59,7 +92,7 @@ input{
     font-size: 16px;
 }
 
-button{
+button {
     background: #575ed8;
     color: #fff;
     font-size: 18px;
@@ -67,4 +100,13 @@ button{
     padding: 12px 0;
     width: 100%;
     border-radius: 0 0 2px 2px;
+}
+
+#send {
+    width: 30%;
+}
+
+#install {
+    float: right;
+    width: 30%;
 }

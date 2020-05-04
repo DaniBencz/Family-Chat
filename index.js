@@ -1,35 +1,19 @@
 'use strict'
 
-var sslRedirect = require('heroku-ssl-redirect');   //  https://medium.com/@thiscodeworks.com/how-to-redirect-your-node-js-app-hosted-on-heroku-from-http-to-https-50ef80130bff
+const sslRedirect = require('heroku-ssl-redirect');   //  https://medium.com/@thiscodeworks.com/how-to-redirect-your-node-js-app-hosted-on-heroku-from-http-to-https-50ef80130bff
 const express = require('express'),
     socket = require('socket.io'),
     app = express(),
     port = process.env.PORT || 8000;  // optional for deployment
 
-// https redirection
-app.use(sslRedirect());
-
-
-// app.get("*", function (request, response) {
-//     response.redirect("https://" + request.headers.host + request.url);
-// });
-
-// app.use(function (request, response) {
-//     if (!request.secure) {
-//         response.redirect("https://" + request.headers.host + request.url);
-//     }
-// });
+app.use(sslRedirect()); // https redirection
 
 app.get('/', function (req, res) {
-    // console.log('req host ', req.headers.host)
     console.log('req url ', req.url)
-    // console.log(req.secure)
-    // res.redirect('https://' + req.headers.host + req.url);
-
     res.sendFile(__dirname + '/public/index.html');
 })
 
-app.get('/online/', function (req, res) {    // https redirection
+app.get('/online/', function (req, res) {
     console.log('online')
     res.sendFile(__dirname + '/public/online/index.html');
 })
