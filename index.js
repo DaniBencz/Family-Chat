@@ -6,6 +6,10 @@ const express = require('express'),
     port = process.env.PORT || 8000;  // optional for deployment
 
 // https redirection
+app.get("*", function (request, response) {
+    response.redirect("https://" + request.headers.host + request.url);
+});
+
 app.get('/', function (req, res) {
     // console.log('req host ', req.headers.host)
     console.log('req url ', req.url)
