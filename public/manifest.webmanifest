@@ -1,0 +1,41 @@
+{
+  "short_name": "fChat",
+  "name": "fChat PWA",
+  "description": "PWA and WebSockets demo",
+  "icons": [
+    {
+      "src": "png/message.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "png/message-96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "png/message-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "png/message-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "png/message-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "png/message-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./",
+  "display": "standalone",
+  "theme_color": "#575ed8",
+  "background_color": "#575ed8"
+}

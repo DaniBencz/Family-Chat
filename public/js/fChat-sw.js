@@ -1,5 +1,7 @@
 'use strict'
 
+// https://jakearchibald.com/2014/offline-cookbook/#cache-only
+
 const config = {
   version: 'fChat-2',
   shell: [
@@ -8,11 +10,13 @@ const config = {
     'chat.js',
     '../styles.css',
     '../manifest.json',
+    /* '../manifest.webmanifest', */
     '../offline/'
   ],
   offline: '/offline/'
 }
 
+// 1: INSTALL
 self.addEventListener('install', e => {
   console.log('worker installed') // will be stale-logged
   e.waitUntil(
@@ -26,6 +30,7 @@ self.addEventListener('install', e => {
 
 // push notifications
 
+// 3: ACTIVATE
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys()
@@ -56,7 +61,7 @@ const customResp = e => {
                 .then(cache => {
                   cache.put(e.request, respClone) // update cache
                 })
-              return f_resp
+              return f_resp // return to client
             })
         })
     )
@@ -71,4 +76,5 @@ const customResp = e => {
   }
 }
 
+// 2: FETCH
 self.addEventListener('fetch', e => { customResp(e) })

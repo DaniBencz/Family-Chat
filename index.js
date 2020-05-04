@@ -5,8 +5,8 @@ const express = require('express'),
     app = express(),
     port = process.env.PORT || 8000;  // optional for deployment
 
-
-app.get('/', function (req, res) {    // https redirection
+// https redirection
+app.get('/', function (req, res) {
     // console.log('req host ', req.headers.host)
     console.log('req url ', req.url)
     // console.log(req.secure)
@@ -30,7 +30,7 @@ app.use(express.static('public'));
 // http/2?
 
 const server = app.listen(port, function () {
-    console.log('listening for requests');
+    console.log(`listening for requests on port ${port}`);
 });
 
 // Socket setup & pass server

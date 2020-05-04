@@ -3,7 +3,7 @@
 const socket = io.connect(window.location.href) // make connection
 // if(socket.disconnected) location.replace(window.location.href + 'offline/')
 
-setInterval(() => { // redirect to offline page, if ws connection broken
+setInterval(() => { // redirect to offline page, if socket connection broken
   if(socket.disconnected) location.replace(window.location.href + 'offline/')
 }, 3000)
 
@@ -50,8 +50,8 @@ socket.on('typing', data => {
 
 // store message history for a day
 
-if (navigator.serviceWorker) { // service worker
-  window.addEventListener('load', () => {
+if (navigator.serviceWorker) {
+  window.addEventListener('load', () => { // wait for loading to finish before registering sw
     navigator.serviceWorker.register('/js/fChat-sw.js', {
       scope: '/'  // default scope is the loaction of sw
     })
