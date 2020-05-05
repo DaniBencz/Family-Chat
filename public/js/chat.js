@@ -62,12 +62,12 @@ if (navigator.serviceWorker) {
 }
 
 const installHandler = () => {  // insall event callback
+  install_button.style.display = 'none'
   deferredPromptEvent.prompt()
   deferredPromptEvent.userChoice
     .then(result => {
       if (result.outcome === 'accepted') {
         alert('Family Chat is installed, have fun!')
-        install_button.style.display = 'none'
       }
       //frameid.parentNode.removeChild(frameid);
     })
@@ -79,10 +79,10 @@ let install_button
 window.addEventListener('beforeinstallprompt', (e) => {
   deferredPromptEvent = e // stash event to trigger later
 
-  let install = document.createElement("button")
+  install_button = document.createElement("button")
   install_button.innerHTML = "Install"
   install_button.setAttribute("id", "install")
-  send.parentNode.insertBefore(install, send.nextSibling)
+  send.parentNode.insertBefore(install_button, send.nextSibling)
 
   install_button.addEventListener('click', e => {
     installHandler()
