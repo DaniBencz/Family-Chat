@@ -95,9 +95,9 @@ const share = () => {
 
   if (navigator.share) {
     navigator.share({
-      title: 'IDB Notes',
-      text: 'IDB Notes React PWA',
-      url: 'https://idbnotes.imfast.io/',
+      title: 'Family Chat',
+      text: 'Family Chat Vanilla JS PWA',
+      url: 'https://family-chat-pwa.herokuapp.com/',
     })
       .then(() => alert('Sharing successfull'))
       .catch((error) => console.log('Error sharing', error));

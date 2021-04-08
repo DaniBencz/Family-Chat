@@ -2,3 +2,4 @@ node_modules
 tutorial-sw.js
 train-ing-sw.js
 todo.txt
+.DS_Store
